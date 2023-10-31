@@ -28,6 +28,7 @@ public class SecurityConfiguration {
         return httpSecurity.authorizeHttpRequests(
                 // Define which urls are visible by which users
                 authorizeRequests -> authorizeRequests
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         // All static resources which are situated in js, images, css are available for anyone
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         // Allow anyone to see the home page, the registration page and the login form
