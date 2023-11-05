@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments/head}">
+</head>
+
+<nav th:replace="~{fragments/navbar}"></nav>
+<body>
+<div class="row special-list">
+  <div class="col-lg-4 col-md-6 special-grid drinks">
+    <div class="gallery-single fix">
+      <img src="images/img-01.jpg" class="img-fluid" alt="Image">
+      <div class="why-text">
+        <a class="btn btn-link">Edit</a>
+        <h4>На Наков Сливовата</h4>
+        <p>Варена под сливата от която са брани плодовете</p>
+        <h5> $7.79</h5>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-6 special-grid drinks">
+    <div class="gallery-single fix">
+      <img src="images/img-02.jpg" class="img-fluid" alt="Image">
+      <div class="why-text">
+        <form th:action="@{/edit/drink/{id}}"
+              th:method="POST"
+              th:object="${drink}">
+
+          <label for="name">Заглавие:</label>
+          <input type="text"
+                 id="name"
+                 th:field="*{name}"
+                 required><br><br>
+
+          <label for="price">Цена:</label>
+          <input type="number" step="0.01"
+                 id="price"
+                 th:field="*{price}"
+                 required><br><br>
+
+          <label for="photo">Снимка</label>
+          <input type="text"
+                 id="photo"
+                 th:field="*{photo}"
+                 required><br><br>
+
+          <label for="description">Описание:</label><br>
+          <textarea id="description" th:field="*{description}" rows="4" cols="50" required></textarea><br><br>
+
+          <button type="submit" class="custom-button">Запази промените</button>
+        </form>
+        <!-- Показване на редактираните стойности -->
+        <h4 th:text="${drink.name}"></h4>
+        <p th:text="${drink.description}"></p>
+        <h5 th:text="'$' + ${drink.price}"></h5>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-6 special-grid drinks">
+    <div class="gallery-single fix">
+      <img src="images/img-03.jpg" class="img-fluid" alt="Image">
+      <div class="why-text">
+        <a class="btn btn-link" >Edit</a>
+        <h4>Special Drinks 3</h4>
+        <p>Sed id magna vitae eros sagittis euismod.</p>
+        <h5> $10.79</h5>
+      </div>
+    </div>
+  </div>
+
+ </body>
+</html>

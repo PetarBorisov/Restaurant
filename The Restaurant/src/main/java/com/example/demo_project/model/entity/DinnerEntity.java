@@ -11,13 +11,16 @@ import java.math.BigDecimal;
 @Table(name = "dinner")
 public class DinnerEntity extends BaseEntity{
 
+    @Column(nullable = false)
     private String name;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @Column
     private String photo;
 
+    @Column(nullable = false)
     private BigDecimal price;
 
     @ManyToOne

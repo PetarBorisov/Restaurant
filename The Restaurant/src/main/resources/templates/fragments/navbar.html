@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+</head>
+
+<body>
+
+<nav  th:fragment="navbar"
+        class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <img src="images/logo.png" alt="" />
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-rs-food" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbars-rs-food">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active"><a class="nav-link" th:href="@{/}">Home</a></li>
+
+        <li class="nav-item"><a class="nav-link" href="/menu">Menu</a></li>
+
+        <li sec:authorize="hasRole('ADMIN')"
+            class="nav-item"><a class="nav-link" th:href="@{/admin/users/panel}">AdminPanel</a></li>
+
+
+        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">Pages</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown-a">
+            <a class="dropdown-item" th:href="@{/reservation}">Reservation</a>
+            <a class="dropdown-item" th:href="@{/stuff}">Stuff</a>
+            <a class="dropdown-item" th:href="@{/gallery}">Gallery</a>
+          </div>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+
+        <li class="nav-item" sec:authorize="!isAuthenticated()">
+          <a class="nav-link" href="/users/register">Register</a>
+        </li>
+        <li
+                class="nav-item" sec:authorize="!isAuthenticated()">
+          <a class="nav-link" th:href="@{/users/login}">Login</a>
+        </li >
+
+
+        <li class="nav-item" sec:authorize="isAuthenticated()">
+          <div class="form-inline my-2 my-lg-0 border px-3">
+            <div class="logged-user">
+              Welcome, <th:block sec:authentication="name"></th:block>!
+            </div>
+            <form th:method="post"
+                  th:action="@{/users/logout}">
+              <input type="submit" class="btn btn-link" value="Logout"/>
+            </form>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+</body>
+</html>

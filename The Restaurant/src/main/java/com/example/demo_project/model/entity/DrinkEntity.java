@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 
 import java.math.BigDecimal;
@@ -12,13 +13,16 @@ import java.math.BigDecimal;
 @Table(name = "drinks")
 public class DrinkEntity extends BaseEntity {
 
+    @Column(nullable = false)
     private String name;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @Column
     private String photo;
 
+    @Column(nullable = false)
     private BigDecimal price;
 
     @ManyToOne
