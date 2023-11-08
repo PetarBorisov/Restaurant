@@ -1,27 +1,26 @@
 package com.example.demo_project.web;
 
+import com.example.demo_project.model.dto.DrinkEditDto;
 import com.example.demo_project.model.dto.DrinksAddDTO;
 import com.example.demo_project.model.entity.DrinkEntity;
+import com.example.demo_project.repository.DrinksRepository;
 import com.example.demo_project.service.DrinksService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 @Controller
 public class MenuAndDrinkController {
 
     private final DrinksService drinksService;
+    private final DrinksRepository drinksRepository;
 
-    public MenuAndDrinkController(DrinksService drinksService) {
+    public MenuAndDrinkController(DrinksService drinksService, DrinksRepository drinksRepository) {
         this.drinksService = drinksService;
+        this.drinksRepository = drinksRepository;
     }
 
     @GetMapping("/menu")
@@ -30,15 +29,13 @@ public class MenuAndDrinkController {
     }
 
     @GetMapping("/drinks")
-    public ModelAndView drinks(Model model) {
-        List<DrinkEntity> drinks = drinksService.getAllDrinks();
-        model.addAttribute("drinks", drinks);
-        return new ModelAndView("drinks", "modelKey", drinks);
+    public ModelAndView drinks() {
+        return new ModelAndView("drinks" );
     }
 
     @GetMapping("/add/drink")
     public ModelAndView addDrink(@ModelAttribute("drinksAddDTO") DrinksAddDTO drinksAddDTO) {
-        return new ModelAndView("edit_drinks");
+        return new ModelAndView("add_drinks");
     }
 
     @PostMapping("/add/drink")
@@ -46,7 +43,7 @@ public class MenuAndDrinkController {
                                  BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("edit_drinks");
+            return new ModelAndView("add_drinks");
         }
 
         drinksService.addDrinks(drinksAddDTO);
@@ -55,33 +52,38 @@ public class MenuAndDrinkController {
 
 
     @GetMapping("/edit/drink/{id}")
-    public ModelAndView showEditDrinkForm(@PathVariable Long id, Model model) {
-        DrinkEntity drink = drinksService.getDrinkById(id);
-        model.addAttribute("drink", drink);
-        return new ModelAndView("edit_drinks", "drink", drink);
-    }
+    public ModelAndView showEditDrinkForm(@PathVariable("id")Long id,Model model) {
+        model.addAttribute("myDrinks", drinksService.getAllDrinks());
+            return new ModelAndView("drinks");
 
+
+    }
     @PostMapping("/edit/drink/{id}")
-    public ModelAndView editDrink(@PathVariable Long id, @ModelAttribute("drink") @Valid DrinksAddDTO drinksAddDTO,
+    public ModelAndView editDrink(@PathVariable("id") Long id, @ModelAttribute("drinkEditDto") @Valid DrinkEditDto drinkEditDto,
                                   BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("edit_drinks");
+            return new ModelAndView("redirect:/edit_drink");
         }
-        DrinkEntity drinkEntity = convertDtoToEntity(drinksAddDTO);
-        // Вашата логика за редакция на напитката с ID
-        drinksService.editDrink(id, drinkEntity);
+
+        DrinkEditDto existingDrink = drinksService.getDrinkEditDtoById(id);
+
+        if (existingDrink == null) {
+            return new ModelAndView("redirect:edit_drink");
+        }
+
+
+        existingDrink.setName(drinkEditDto.getName());
+        existingDrink.setPhoto(drinkEditDto.getPhoto());
+        existingDrink.setDescription(drinkEditDto.getDescription());
+        existingDrink.setPrice(drinkEditDto.getPrice());
+
+        drinksService.saveDrink(existingDrink);
+
+
         return new ModelAndView("redirect:/drinks");
     }
 
-    private DrinkEntity convertDtoToEntity(DrinksAddDTO drinksAddDTO) {
-        DrinkEntity drinkEntity = new DrinkEntity();
-        drinkEntity.setId(drinksAddDTO.getId());
-        drinkEntity.setName(drinksAddDTO.getName());
-        drinkEntity.setPhoto(drinksAddDTO.getPhoto());
-        drinkEntity.setDescription(drinksAddDTO.getDescription());
-        drinkEntity.setPrice(drinksAddDTO.getPrice());
-        return drinkEntity;
-    }
+
 }
 
 

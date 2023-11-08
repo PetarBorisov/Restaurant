@@ -1,5 +1,6 @@
 package com.example.demo_project.service.impl;
 
+import com.example.demo_project.model.dto.DrinkEditDto;
 import com.example.demo_project.model.dto.DrinksAddDTO;
 import com.example.demo_project.model.entity.DrinkEntity;
 import com.example.demo_project.repository.DrinksRepository;
@@ -48,28 +49,45 @@ public class DrinksServiceImpl implements DrinksService {
     }
 
     @Override
-    public DrinkEntity getDrinkById(Long drinkId) {
-        Optional<DrinkEntity> drinkEntityOptional = drinksRepository.findById(drinkId);
-        return drinkEntityOptional.orElse(null);
-
+    public DrinkEditDto getDrinkById(Long id) {
+        Optional<DrinkEntity> drinkEntityOptional = drinksRepository.findById(id);
+        if (drinkEntityOptional.isPresent()) {
+            DrinkEntity drinkEntity = drinkEntityOptional.get();
+            return convertEntityToEditDto(drinkEntity);
+        }
+        return null;
     }
+
+    private DrinkEditDto convertEntityToEditDto(DrinkEntity drinkEntity) {
+        DrinkEditDto editDto = new DrinkEditDto();
+        editDto.setId(drinkEntity.getId());
+        editDto.setName(drinkEntity.getName());
+        editDto.setPhoto(drinkEntity.getPhoto());
+        editDto.setDescription(drinkEntity.getDescription());
+        editDto.setPrice(drinkEntity.getPrice());
+        return editDto;
+    }
+
 
     @Override
     public List<DrinkEntity> getAllDrinks() {
         return drinksRepository.findAll();
     }
 
-    @Override
-    public void editDrink(Long id, DrinkEntity drinkEntity) {
-        Optional<DrinkEntity> existingDrinkOptional = drinksRepository.findById(id);
-        if (existingDrinkOptional.isPresent()) {
-            DrinkEntity existingDrink = existingDrinkOptional.get();
-            existingDrink.setName(drinkEntity.getName());
-            existingDrink.setPhoto(drinkEntity.getPhoto());
-            existingDrink.setDescription(drinkEntity.getDescription());
-            existingDrink.setPrice(drinkEntity.getPrice());
 
-            drinksRepository.save(existingDrink); // Запазване на редактираната напитка в базата данни
-        }
+        @Override
+        public void saveDrink(DrinkEditDto drinkEditDto) {
+
+            DrinkEntity drinkEntity = modelMapper.map(drinkEditDto, DrinkEntity.class);
+
+            drinksRepository.save(drinkEntity);
     }
+
+    @Override
+    public DrinkEditDto getDrinkEditDtoById(Long id) {
+        Optional<DrinkEntity> drinkEntityOptional = drinksRepository.findById(id);
+        return drinkEntityOptional.map(drinkEntity -> modelMapper.map(drinkEntity, DrinkEditDto.class)).orElse(null);
+
+    }
+
 }

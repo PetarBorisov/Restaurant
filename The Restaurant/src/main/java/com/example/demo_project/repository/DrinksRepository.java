@@ -10,9 +10,6 @@ import java.util.Optional;
 @Repository
 public interface DrinksRepository extends JpaRepository<DrinkEntity, Long> {
 
-
-    Optional<DrinkEntity> findById(Long id);
-
     Optional<DrinkEntity> findByName(String name);
 
 }
