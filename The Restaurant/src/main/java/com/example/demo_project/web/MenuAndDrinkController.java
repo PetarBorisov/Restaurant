@@ -12,6 +12,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 public class MenuAndDrinkController {
 
@@ -29,8 +31,10 @@ public class MenuAndDrinkController {
     }
 
     @GetMapping("/drinks")
-    public ModelAndView drinks() {
-        return new ModelAndView("drinks" );
+    public ModelAndView showDrinks(Model model) {
+        List<DrinkEntity> myDrinks = drinksService.getAllDrinks();
+        model.addAttribute("myDrinks", myDrinks);
+        return new ModelAndView("drinks");
     }
 
     @GetMapping("/add/drink")
@@ -52,14 +56,15 @@ public class MenuAndDrinkController {
 
 
     @GetMapping("/edit/drink/{id}")
-    public ModelAndView showEditDrinkForm(@PathVariable("id")Long id,Model model) {
-        model.addAttribute("myDrinks", drinksService.getAllDrinks());
-            return new ModelAndView("drinks");
+    public ModelAndView showEditDrinkForm(@PathVariable("id") Long id, Model model) {
+        DrinkEditDto drink = drinksService.getDrinkById(id);
+        model.addAttribute("drink", drink);
+        return new ModelAndView("edit_drink");
 
 
     }
     @PostMapping("/edit/drink/{id}")
-    public ModelAndView editDrink(@PathVariable("id") Long id, @ModelAttribute("drinkEditDto") @Valid DrinkEditDto drinkEditDto,
+    public ModelAndView editDrink(@PathVariable("id") Long id, @ModelAttribute("drink") @Valid DrinkEditDto drinkEditDto,
                                   BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ModelAndView("redirect:/edit_drink");
@@ -70,8 +75,6 @@ public class MenuAndDrinkController {
         if (existingDrink == null) {
             return new ModelAndView("redirect:edit_drink");
         }
-
-
         existingDrink.setName(drinkEditDto.getName());
         existingDrink.setPhoto(drinkEditDto.getPhoto());
         existingDrink.setDescription(drinkEditDto.getDescription());

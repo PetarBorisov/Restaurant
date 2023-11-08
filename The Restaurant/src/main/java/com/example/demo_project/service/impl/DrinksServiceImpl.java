@@ -41,7 +41,7 @@ public class DrinksServiceImpl implements DrinksService {
             DrinkEntity drinkEntity = this.modelMapper.map(drink, DrinkEntity.class);
             drinksRepository.save(drinkEntity);
         } else {
-            // Create new drink!!!
+            // Създаване на нова напитка
             DrinkEntity newDrink = modelMapper.map(drinksAddDTO, DrinkEntity.class);
             drinksRepository.save(newDrink);
 

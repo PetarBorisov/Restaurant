@@ -4,9 +4,9 @@
 <head th:replace="~{fragments/head}">
 <body>
 <h1>Редактиране на напитка</h1>
-<form th:action="@{/edit/drink/{id} (id=${drinkEditDto.id})}"
+<form th:action="@{/edit/drink/{id}(id=${drink.id})}"
       th:method="POST"
-      th:object="${drinkEditDto}"
+      th:object="${drink}"
 >
   <label for="name">Заглавие:</label>
   <input type="text"

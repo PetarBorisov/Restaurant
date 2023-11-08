@@ -1,5 +1,6 @@
 <!DOCTYPE html >
-<html lang="en">
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/head}">
 </head>
 
@@ -7,44 +8,23 @@
 <body>
 
 <div class="row special-list" >
-  <div  class="col-lg-4 col-md-6 special-grid drinks">
+  <div th:each="drink : ${myDrinks}"  class="col-lg-4 col-md-6 special-grid drinks">
     <div class="gallery-single fix">
-      <img  src="images/img-01.jpg" class="img-fluid" alt="Image">
+      <img  th:src="${drink.photo}" class="img-fluid" alt="Image">
       <div  class="why-text" >
-        <form th:action="@{/add/drink}">
-          <button type="submit" class="btn btn-link">Add</button>
-        </form>
-        <form >
-          <button type="submit" class="btn btn-link">Edit</button>
-        </form>
-
-        <h4 >На Наков Сливовата</h4>
-        <p >Варена под сливата от която са брани плодовете</p>
-        <h5> $7.79</h5>
+          <form sec:authorize="hasRole('ADMIN')" th:action="@{/edit/drink/{id}(id=${drink.id})}">
+              <button type="submit" class="btn btn-link">Edit</button>
+          </form>
+        <h4 th:text="${drink.name}">На Наков Сливовата</h4>
+        <p th:text="${drink.description}">Варена под сливата от която са брани плодовете</p>
+        <h5 th:text="'$' + ${drink.price}"> $7.79</h5>
       </div>
     </div>
 </div>
+    <form sec:authorize="hasRole('ADMIN')" th:action="@{/add/drink}">
+      <button type="submit" class="custom-button">  Add Drink</button>
+    </form>
 
-  <div class="col-lg-4 col-md-6 special-grid drinks">
-    <div class="gallery-single fix">
-      <img src="images/img-02.jpg" class="img-fluid" alt="Image">
-      <div class="why-text">
-        <h4>На Наков Сливовата</h4>
-        <p>Варена под сливата от която са брани плодовете</p>
-        <h5> $7.79</h5>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-lg-4 col-md-6 special-grid drinks">
-    <div class="gallery-single fix">
-      <img src="images/img-03.jpg" class="img-fluid" alt="Image">
-      <div class="why-text">
-        <h4>Special Drinks 3</h4>
-        <p>Sed id magna vitae eros sagittis euismod.</p>
-        <h5> $10.79</h5>
-      </div>
-    </div>
   </div>
 
 

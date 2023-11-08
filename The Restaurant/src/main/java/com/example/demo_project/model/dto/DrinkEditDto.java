@@ -1,6 +1,6 @@
 package com.example.demo_project.model.dto;
 
-import com.example.demo_project.model.entity.DrinkEntity;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -63,14 +63,5 @@ public class DrinkEditDto {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
-    public static DrinkEditDto createFormDrinks(DrinkEntity drinkEntity) {
-        DrinkEditDto drinkEditDto = new DrinkEditDto();
 
-        drinkEditDto.setId(drinkEntity.getId());
-        drinkEditDto.setName(drinkEntity.getName());
-        drinkEditDto.setPhoto(drinkEntity.getPhoto());
-        drinkEditDto.setPrice(drinkEntity.getPrice());
-        drinkEditDto.setDescription(drinkEntity.getDescription());
-        return drinkEditDto;
-    }
 }
