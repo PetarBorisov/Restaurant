@@ -1,9 +1,12 @@
 package com.example.demo_project.web;
 
-import com.example.demo_project.model.dto.DrinkEditDto;
+import com.example.demo_project.model.dto.DinnerAddDTO;
+import com.example.demo_project.model.dto.DinnerEditDTO;
 import com.example.demo_project.model.dto.LunchAddDTO;
 import com.example.demo_project.model.dto.LunchEditDTO;
+import com.example.demo_project.model.entity.DinnerEntity;
 import com.example.demo_project.model.entity.LunchEntity;
+import com.example.demo_project.service.DinnerService;
 import com.example.demo_project.service.LunchService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -21,19 +24,22 @@ import java.util.List;
 public class FoodController {
 
     private final LunchService lunchService;
+    private final DinnerService dinnerService;
 
-    public FoodController(LunchService lunchService) {
+    public FoodController(LunchService lunchService, DinnerService dinnerService) {
         this.lunchService = lunchService;
+        this.dinnerService = dinnerService;
     }
 
     @GetMapping("/lunches")
-    public ModelAndView showLunch(Model model){
+    public ModelAndView showLunch(Model model) {
         List<LunchEntity> myLunches = lunchService.getAllLunches();
         model.addAttribute("myLunches", myLunches);
         return new ModelAndView("lunches");
     }
+
     @GetMapping("/add/lunch")
-    public ModelAndView addLunch(@ModelAttribute("lunchAddDTO")LunchAddDTO lunchAddDTO) {
+    public ModelAndView addLunch(@ModelAttribute("lunchAddDTO") LunchAddDTO lunchAddDTO) {
         return new ModelAndView("add_lunches");
     }
 
@@ -46,6 +52,7 @@ public class FoodController {
         lunchService.addLunch(lunchAddDTO);
         return new ModelAndView("redirect:/lunches");
     }
+
     @GetMapping("/edit/lunch/{id}")
     public ModelAndView showEditDrinkForm(@PathVariable("id") Long id, Model model) {
         LunchEditDTO lunch = lunchService.getLunchById(id);
@@ -54,9 +61,9 @@ public class FoodController {
     }
 
     @PostMapping("/edit/lunch/{id}")
-    public ModelAndView editLunch(@PathVariable("id") Long id,@ModelAttribute("lunch") @Valid LunchEditDTO lunchEditDTO,
+    public ModelAndView editLunch(@PathVariable("id") Long id, @ModelAttribute("lunch") @Valid LunchEditDTO lunchEditDTO,
                                   BindingResult bindingResult) {
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return new ModelAndView("redirect:/edit_lunch");
         }
         LunchEditDTO existingLunch = lunchService.getLunchEditDtoById(id);
@@ -76,8 +83,53 @@ public class FoodController {
     }
 
     @GetMapping("/dinners")
-    public ModelAndView dinner(){
+    public ModelAndView showDinner(Model model) {
+        List<DinnerEntity> myDinners = dinnerService.getAllDinners();
+        model.addAttribute("myDinners", myDinners);
         return new ModelAndView("dinners");
     }
 
-}
+    @GetMapping("/add/dinner")
+    public ModelAndView addDinner(@ModelAttribute("dinnerAddDTO") DinnerAddDTO dinnerAddDTO) {
+        return new ModelAndView("add_dinners");
+    }
+
+    @PostMapping("/add/dinner")
+    public ModelAndView addDinner(@ModelAttribute("dinnerAddDTO") @Valid DinnerAddDTO dinnerAddDTO,
+                                  BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("add_dinners");
+        }
+        dinnerService.addDinner(dinnerAddDTO);
+        return new ModelAndView("redirect:/dinners");
+    }
+
+    @GetMapping("/edit/dinner/{id}")
+    public ModelAndView showEditDinnerForm(@PathVariable("id") Long id, Model model) {
+        DinnerEditDTO dinner = dinnerService.getDinnerById(id);
+        model.addAttribute("dinner", dinner);
+        return new ModelAndView("edit_dinner");
+    }
+
+    @PostMapping("/edit/dinner/{id}")
+    public ModelAndView editDinner(@PathVariable("id") Long id, @ModelAttribute("dinner") @Valid DinnerEditDTO dinnerEditDTO,
+                                   BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("redirect:/edit_dinner");
+        }
+        DinnerEditDTO existingDinner = dinnerService.getDinnerEditDtoById(id);
+
+        if (existingDinner == null) {
+            return new ModelAndView("redirect:/edit_dinner");
+        }
+            existingDinner.setName(dinnerEditDTO.getName());
+            existingDinner.setPhoto(dinnerEditDTO.getPhoto());
+            existingDinner.setDescription(dinnerEditDTO.getDescription());
+            existingDinner.setPrice(dinnerEditDTO.getPrice());
+
+            dinnerService.saveDinner(existingDinner);
+            return new ModelAndView("redirect:/dinners");
+
+        }
+
+    }

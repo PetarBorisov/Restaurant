@@ -1,43 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/head}">
 </head>
+
 <nav th:replace="~{fragments/navbar}"></nav>
-
 <body>
-<div class="col-lg-4 col-md-6 special-grid dinner">
-  <div class="gallery-single fix">
-    <img src="images/img-07.jpg" class="img-fluid" alt="Image">
-    <div class="why-text">
-      <h4>Special Dinner 1</h4>
-      <p>Sed id magna vitae eros sagittis euismod.</p>
-      <h5> $25.79</h5>
+
+<div class="row special-list" >
+  <div th:each=" dinner : ${myDinners}"  class="col-lg-4 col-md-6 special-grid lunch">
+    <div class="gallery-single fix">
+      <img th:src="${dinner.photo}" class="img-fluid" alt="Image">
+      <div class="why-text">
+        <form sec:authorize="hasRole('ADMIN')" th:action="@{/edit/dinner/{id}(id=${dinner.id})}">
+          <button type="submit" class="btn btn-link">Edit</button>
+        </form>
+        <h4 th:text="${dinner.name}">Special Lunch 1</h4>
+        <p th:text="${dinner.description}" >Sed id magna vitae eros sagittis euismod.</p>
+        <h5 th:text="'$' + ${dinner.price}" > $15.79</h5>
+      </div>
     </div>
   </div>
-</div>
-
-<div class="col-lg-4 col-md-6 special-grid dinner">
-  <div class="gallery-single fix">
-    <img src="images/img-08.jpg" class="img-fluid" alt="Image">
-    <div class="why-text">
-      <h4>Special Dinner 2</h4>
-      <p>Sed id magna vitae eros sagittis euismod.</p>
-      <h5> $22.79</h5>
-    </div>
-  </div>
-</div>
-
-<div class="col-lg-4 col-md-6 special-grid dinner">
-  <div class="gallery-single fix">
-    <img src="images/img-09.jpg" class="img-fluid" alt="Image">
-    <div class="why-text">
-      <h4>Special Dinner 3</h4>
-      <p>Sed id magna vitae eros sagittis euismod.</p>
-      <h5> $24.79</h5>
-    </div>
-  </div>
-
+  <form sec:authorize="hasRole('ADMIN')" th:action="@{/add/dinner}">
+    <button type="submit" class="custom-button">  Add Dinner</button>
+  </form>
 
 </div>
+
+
 </body>
+
 </html>
