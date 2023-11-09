@@ -1,41 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/head}">
 </head>
+
 <nav th:replace="~{fragments/navbar}"></nav>
 <body>
 
-<div class="col-lg-4 col-md-6 special-grid lunch">
+<div class="row special-list" >
+<div th:each=" lunch : ${myLunches}"  class="col-lg-4 col-md-6 special-grid lunch">
     <div class="gallery-single fix">
-        <img src="images/img-04.jpg" class="img-fluid" alt="Image">
+        <img th:src="${lunch.photo}" class="img-fluid" alt="Image">
         <div class="why-text">
-            <h4>Special Lunch 1</h4>
-            <p>Sed id magna vitae eros sagittis euismod.</p>
-            <h5> $15.79</h5>
+            <form sec:authorize="hasRole('ADMIN')" th:action="@{/edit/lunch/{id}(id=${lunch.id})}">
+                <button type="submit" class="btn btn-link">Edit</button>
+            </form>
+            <h4 th:text="${lunch.name}">Special Lunch 1</h4>
+            <p th:text="${lunch.description}" >Sed id magna vitae eros sagittis euismod.</p>
+            <h5 th:text="'$' + ${lunch.price}" > $15.79</h5>
         </div>
     </div>
+</div>
+    <form sec:authorize="hasRole('ADMIN')" th:action="@{/add/lunch}">
+        <button type="submit" class="custom-button">  Add Lunch</button>
+    </form>
+
 </div>
 
-<div class="col-lg-4 col-md-6 special-grid lunch">
-    <div class="gallery-single fix">
-        <img src="images/img-05.jpg" class="img-fluid" alt="Image">
-        <div class="why-text">
-            <h4>Special Lunch 2</h4>
-            <p>Sed id magna vitae eros sagittis euismod.</p>
-            <h5> $18.79</h5>
-        </div>
-    </div>
-</div>
 
-<div class="col-lg-4 col-md-6 special-grid lunch">
-    <div class="gallery-single fix">
-        <img src="images/img-06.jpg" class="img-fluid" alt="Image">
-        <div class="why-text">
-            <h4>Special Lunch 3</h4>
-            <p>Sed id magna vitae eros sagittis euismod.</p>
-            <h5> $20.79</h5>
-        </div>
-    </div>
-</div>
 </body>
+
 </html>
