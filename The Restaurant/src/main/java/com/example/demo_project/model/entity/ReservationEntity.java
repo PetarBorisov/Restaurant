@@ -30,6 +30,9 @@ public class ReservationEntity extends BaseEntity{
     @Column(nullable = false)
     private Integer numberPersons;
 
+    @Column
+    private Integer tables;
+
     @ManyToOne
     private UserEntity user;
 
@@ -81,6 +84,14 @@ public class ReservationEntity extends BaseEntity{
         this.numberPersons = numberPersons;
     }
 
+    public Integer getTables() {
+        return tables;
+    }
+
+    public void setTables(Integer tables) {
+        this.tables = tables;
+    }
+
     public UserEntity getUser() {
         return user;
     }
@@ -88,4 +99,5 @@ public class ReservationEntity extends BaseEntity{
     public void setUser(UserEntity user) {
         this.user = user;
     }
+
 }
