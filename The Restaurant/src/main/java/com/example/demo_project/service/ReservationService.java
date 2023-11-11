@@ -5,6 +5,6 @@ import com.example.demo_project.model.dto.ReservationAddDTO;
 public interface ReservationService {
 
 
-    void addReservation(ReservationAddDTO reservationAddDTO);
+    boolean addReservation(ReservationAddDTO reservationAddDTO);
 
 }

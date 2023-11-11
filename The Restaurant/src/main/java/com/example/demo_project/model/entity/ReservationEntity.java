@@ -19,7 +19,7 @@ public class ReservationEntity extends BaseEntity{
     private String email;
 
     @Column(nullable = false)
-    private Integer phoneNumber;
+    private String phoneNumber;
 
     @Column(nullable = false)
     private LocalDate date;
@@ -52,13 +52,7 @@ public class ReservationEntity extends BaseEntity{
         this.email = email;
     }
 
-    public Integer getPhoneNumber() {
-        return phoneNumber;
-    }
 
-    public void setPhoneNumber(Integer phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
 
     public LocalDate getDate() {
         return date;
@@ -74,6 +68,14 @@ public class ReservationEntity extends BaseEntity{
 
     public void setTime(LocalTime time) {
         this.time = time;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public Integer getNumberPersons() {

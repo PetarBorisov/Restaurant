@@ -20,11 +20,11 @@ public class ReservationAddDTO {
     @NotBlank
     private String email;
 
-    @NotBlank
-    @Size(min = 3, max = 15, message = "Phone number length must be between 10 and 15 characters!")
-    private Integer phoneNumber;
 
-    @NotBlank
+    @Size(min = 3, max = 15, message = "Phone number length must be between 10 and 15 characters!")
+    private String phoneNumber;
+
+
     private Integer numberPersons;
 
 
@@ -76,11 +76,11 @@ public class ReservationAddDTO {
         this.email = email;
     }
 
-    public Integer getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

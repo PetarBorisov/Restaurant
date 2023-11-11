@@ -23,20 +23,27 @@ public class ReservationController {
 
     @GetMapping("/reservation")
     public ModelAndView showReservation(@ModelAttribute("reservationAddDTO") ReservationAddDTO reservationAddDTO) {
-    return new ModelAndView("reservation");
+        return new ModelAndView("reservation");
 
     }
 
-   @PostMapping("/reservation")
+    @PostMapping("/reservation")
     public ModelAndView addReservation(@ModelAttribute("reservationAddDTO") @Valid ReservationAddDTO reservationAddDTO,
                                        BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ModelAndView("redirect:/reservation");
         }
 
-        reservationService.addReservation(reservationAddDTO);
+        boolean successFullRegistration = reservationService.addReservation(reservationAddDTO);
+        if (!successFullRegistration) {
+            ModelAndView modelAndView = new ModelAndView("reservation");
+            return modelAndView;
+        } else {
 
-        return new ModelAndView("index");
-   }
+            return new ModelAndView("successReservation");
 
+
+        }
+
+    }
 }

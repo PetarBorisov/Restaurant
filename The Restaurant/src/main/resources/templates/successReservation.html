@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head}">
+  <link rel="stylesheet" href="style.css"> <!-- Връзка към CSS стилове -->
+</head>
+<body>
+
+<div class="container">
+  <p th:text="Име на потребителя"></p>
+  <h1>Вие направихте Успешна регистрация</h1>
+  <p th:text="${successMessage}"></p>
+  <p th:text="'Име на потребителя: ' + ${userName}"></p>
+  <!-- Други елементи и стилове, ако е необходимо -->
+</div>
+</body>
+</html>
