@@ -13,7 +13,7 @@ public class ReservationAddDTO {
     private Long id;
 
     @NotBlank
-    @Size(min = 2, max = 20, message = "Name length must be between 3 and 20 characters!")
+    @Size(min = 3, max = 20, message = "Name length must be between 3 and 20 characters!")
     private String name;
 
     @Email
@@ -21,7 +21,7 @@ public class ReservationAddDTO {
     private String email;
 
 
-    @Size(min = 3, max = 15, message = "Phone number length must be between 10 and 15 characters!")
+    @Size(min = 10, max = 15, message = "Phone number length must be between 10 and 15 characters!")
     private String phoneNumber;
 
 
@@ -33,7 +33,7 @@ public class ReservationAddDTO {
     @FutureOrPresent(message = "Date must be on present or in the future!")
     private LocalDate date;
 
-    @Future(message = "Time must be in the future!")
+    @NotNull(message ="Please enter the time!")
     private LocalTime time;
 
     public Long getId() {

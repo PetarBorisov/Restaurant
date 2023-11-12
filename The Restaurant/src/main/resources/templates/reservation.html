@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head th:replace="~{fragments/head}">
-	<link rel="stylesheet" href="style.css"> <!-- Връзка към CSS стилове -->
+
 </head>
 
 <body>
@@ -29,9 +29,10 @@
 										<input id="input_date"
 											   class="form-control"
 											   th:field="*{date}"
+											   th:errorclass="bg-danger"
 											   type="date"
 											   required data-error="Please enter Date">
-										<div class="help-block with-errors"></div>
+										<div class="help-block with-errors" th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></div>
 									</div>
 								</div>
 								<div class="col-md-12">
@@ -39,9 +40,10 @@
 										<input id="input_time"
 											   class="form-control"
 											   th:field="*{time}"
+											   th:errorclass="bg-danger"
 											   type="time"
 											   required data-error="Please enter time">
-										<div class="help-block with-errors"></div>
+										<div class="help-block with-errors" th:if="${#fields.hasErrors('date')}" th:errors="*{time}"></div>
 									</div>
 								</div>
 								<div class="col-md-12">
@@ -49,6 +51,7 @@
 										<select class="custom-select d-block form-control"
 												id="person"
 												th:field="*{numberPersons}"
+												th:errorclass="bg-danger"
 												required data-error="Please select Person">
 											<option value="1">1</option>
 											<option value="2">2</option>
@@ -58,7 +61,7 @@
 											<option value="6">6</option>
 											<option value="7">7</option>
 										</select>
-										<div class="help-block with-errors"></div>
+										<div class="help-block with-errors" th:if="${#fields.hasErrors('date')}" th:errors="*{numberPersons}"></div>
 									</div>
 								</div>
 							</div>
@@ -70,10 +73,10 @@
 											   class="form-control"
 											   id="name"
 											   th:field="*{name}"
-											   th:errorclass="is-invalid"
+											   th:errorclass="bg-danger"
 											   placeholder="Your Name"
 											   required data-error="Please enter your name">
-										<div class="help-block with-errors"></div>
+										<div class="help-block with-errors" th:if="${#fields.hasErrors('date')}" th:errors="*{name}"></div>
 									</div>
 								</div>
 								<div class="col-md-12">
@@ -83,8 +86,9 @@
 											   id="email"
 											   class="form-control"
 											   th:field="*{email}"
+											   th:errorclass="bg-danger"
 											   required data-error="Please enter your email">
-										<div class="help-block with-errors"></div>
+										<div class="help-block with-errors" th:if="${#fields.hasErrors('date')}" th:errors="*{email}"></div>
 									</div>
 								</div>
 								<div class="col-md-12">
@@ -94,8 +98,9 @@
 											   id="phone"
 											   class="form-control"
 											   th:field="*{phoneNumber}"
+											   th:errorclass="bg-danger"
 											   required data-error="Please enter your Number">
-										<div class="help-block with-errors"></div>
+										<div class="help-block with-errors" th:if="${#fields.hasErrors('date')}" th:errors="*{phoneNumber}"></div>
 									</div>
 								</div>
 							</div>
