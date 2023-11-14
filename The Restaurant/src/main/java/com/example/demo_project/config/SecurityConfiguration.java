@@ -8,10 +8,15 @@ import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 public class SecurityConfiguration {
@@ -25,14 +30,19 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity.authorizeHttpRequests(
+
+        return httpSecurity
+
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
                 // Define which urls are visible by which users
-                authorizeRequests -> authorizeRequests
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/comments/delete/{id}/**").hasRole("ADMIN")
                         // All static resources which are situated in js, images, css are available for anyone
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         // Allow anyone to see the home page, the registration page and the login form
                         .requestMatchers("/","/menu","/gallery","/users/login", "/users/register", "/users/login-error").permitAll()
+                        .requestMatchers("/api/comments/add","/api/comments/view").permitAll()
                         // all other requests are authenticated.
                         .anyRequest().authenticated()
         ).formLogin(
@@ -47,6 +57,7 @@ public class SecurityConfiguration {
                             .defaultSuccessUrl("/",true)
                             .failureForwardUrl("/users/login-error");
                 }
+
         ).logout(
                 logout -> {
                     logout
@@ -57,6 +68,7 @@ public class SecurityConfiguration {
                             // invalidate the HTTP session
                             .invalidateHttpSession(true);
                 }
+
         ).rememberMe(
                 rememberMe -> {
                     rememberMe
@@ -65,6 +77,7 @@ public class SecurityConfiguration {
                             .rememberMeCookieName("rememberme");
                 }
         ).build();
+
     }
 
     @Bean
@@ -78,5 +91,7 @@ public class SecurityConfiguration {
     public PasswordEncoder passwordEncoder() {
         return Pbkdf2PasswordEncoder.defaultsForSpringSecurity_v5_8();
     }
+
+
 }
 
