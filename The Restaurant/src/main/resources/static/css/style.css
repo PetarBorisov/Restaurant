@@ -1326,7 +1326,38 @@ blockquote {
 .error {
 	color: red;
 }
+.comment {
+	border: 1px solid #ccc; /* рамка */
+	padding: 10px; /* вътрешен отстъп */
+	margin-bottom: 10px; /* разстояние между коментарите */
+}
 
+/* Стил за бутона за изтриване */
+.comment button {
+	margin-top: 5px; /* разстояние над бутона */
+	background-color: #ff0000; /* цвят на фона на бутона */
+	color: #fff; /* цвят на текста на бутона */
+	border: none; /* без граници */
+	padding: 5px 10px; /* отстъпи */
+	cursor: pointer; /* курсор при хофвър */
+}
+
+/* Стил за линията между коментарите */
+.comment:not(:last-child) {
+	border-bottom: 1px dashed #ccc; /* линия между коментарите, освен последния */
+}
+
+#commentButton {
+	background-color: #4CAF50; /* Зелен цвят */
+	color: #fff; /* Бял цвят за текста */
+	border: none; /* Без граници */
+	padding: 10px 15px; /* Отстъпи */
+	cursor: pointer; /* Курсор при хофвър */
+}
+
+#commentButton:hover {
+	background-color: #45a049; /* Зелен цвят при хофвър */
+}
 /** ADD YOUR AWESOME CODES HERE **/
 
 
