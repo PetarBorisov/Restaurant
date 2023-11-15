@@ -1,2 +1,2 @@
 # Restaurant
-This is my first project with Spring Security
+This is my first project with Spring Security.It is about a Restaurant application, which aims to show the services of the restaurant and the user can make a reservation for a given day and time, reserving a table and determining how many people will be present. In it I have implemented admin/user, fetch, validations and annotations, model mapper, working with Thymeleaf and others. By the end of the project, the following will be added to it: intraceptor, schedule works and unit/integration tests.
