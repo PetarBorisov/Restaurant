@@ -24,6 +24,8 @@
         <li sec:authorize="hasRole('ADMIN')"
             class="nav-item"><a class="nav-link" th:href="@{/admin/users/panel}">AdminPanel</a></li>
 
+        <li sec:authorize="hasRole('ADMIN')"
+            class="nav-item"><a class="nav-link" th:href="@{/loginStatistic}">LoginStatic</a></li>
 
         <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
         <li class="nav-item dropdown">
@@ -32,6 +34,7 @@
             <a class="dropdown-item" th:href="@{/reservation}">Reservation</a>
             <a class="dropdown-item" th:href="@{/stuff}">Stuff</a>
             <a class="dropdown-item" th:href="@{/gallery}">Gallery</a>
+
           </div>
         </li>
         <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
