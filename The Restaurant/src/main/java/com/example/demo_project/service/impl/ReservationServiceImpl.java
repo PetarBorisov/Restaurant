@@ -5,8 +5,7 @@ import com.example.demo_project.model.entity.ReservationEntity;
 import com.example.demo_project.repository.ReservationRepository;
 import com.example.demo_project.service.ReservationService;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
