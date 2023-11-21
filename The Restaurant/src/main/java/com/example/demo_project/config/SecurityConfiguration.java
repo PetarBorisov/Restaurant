@@ -2,7 +2,7 @@ package com.example.demo_project.config;
 
 
 import com.example.demo_project.repository.UserRepository;
-import com.example.demo_project.service.impl.RestauranrUserDetailsService;
+import com.example.demo_project.service.impl.RestaurantUserDetailsService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -80,7 +80,7 @@ public class SecurityConfiguration {
     public UserDetailsService userDetailsService(UserRepository userRepository) {
         // This service translates the restaurant users and roles
         // to representation which spring security understands.
-        return new RestauranrUserDetailsService(userRepository);
+        return new RestaurantUserDetailsService(userRepository);
     }
 
     @Bean
