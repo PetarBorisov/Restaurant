@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 
 
+
 public class RestaurantUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
