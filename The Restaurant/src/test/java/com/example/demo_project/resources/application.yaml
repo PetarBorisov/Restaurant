@@ -28,3 +28,10 @@ open.exchange.rates:
   app_id: test
   symbols: EUR,BGN
   enabled: false
+
+mail:
+  restaurant: "restaurant@example.com"
+  host: localhost
+  port: 3333
+  username: test@example.com
+  password: topsecret

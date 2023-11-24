@@ -38,3 +38,10 @@ open.exchange.rates:
   app_id: ${APP_ID:test}
   symbols: EUR,BGN
   enabled: false
+
+mail:
+  restaurant: "restaurant@example.com"
+  host: localhost
+  port: 1025
+  username: test
+  password: test@example.com
