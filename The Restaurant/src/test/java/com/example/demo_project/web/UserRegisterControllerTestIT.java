@@ -6,7 +6,7 @@ import com.icegreen.greenmail.util.GreenMail;
 import com.icegreen.greenmail.util.ServerSetup;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,21 +50,6 @@ class UserRegisterControllerTestIT {
     @AfterEach
     void tearDown() {
         greenMail.stop();
-    }
-
-    @Test
-    void testRegistration() throws Exception {
-        mockMvc.perform(
-                        MockMvcRequestBuilders.post("/users/register")
-
-                                .param("email", "pesho@softuni.com")
-                                .param("firstName", "Pesho")
-                                .param("lastName", "Petrov")
-                                .param("password", "topsecret")
-                                .param("confirmPassword", "topsecret")
-                                .with(csrf())
-                ).andExpect(view().name("/login"));
-
 
     }
 

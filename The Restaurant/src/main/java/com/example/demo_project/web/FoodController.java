@@ -54,7 +54,7 @@ public class FoodController {
     }
 
     @GetMapping("/edit/lunch/{id}")
-    public ModelAndView showEditDrinkForm(@PathVariable("id") Long id, Model model) {
+    public ModelAndView showEditLunchForm(@PathVariable("id") Long id, Model model) {
         LunchEditDTO lunch = lunchService.getLunchById(id);
         model.addAttribute("lunch", lunch);
         return new ModelAndView("edit_lunch");

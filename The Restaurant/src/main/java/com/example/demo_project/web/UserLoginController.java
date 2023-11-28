@@ -21,8 +21,7 @@ public class UserLoginController {
 
     @PostMapping("/login-error")
     public String onFailure(
-            @ModelAttribute("email") String email,
-            Model model) {
+            @ModelAttribute("email") String email, Model model) {
 
         model.addAttribute("email", email);
         model.addAttribute("bad_credentials", "true");

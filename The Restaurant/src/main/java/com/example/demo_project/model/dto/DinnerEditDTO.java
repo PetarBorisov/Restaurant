@@ -13,7 +13,7 @@ public class DinnerEditDTO {
     @NotBlank
     private String name;
 
-    @Size(min = 3, max = 50)
+    @Size(min = 3, max = 150)
     private String description;
 
     @NotBlank
@@ -21,6 +21,8 @@ public class DinnerEditDTO {
 
     @NotNull
     private BigDecimal price;
+
+
 
     public Long getId() {
         return id;
