@@ -53,7 +53,7 @@ function deleteComment(id) {
         .then(data => {
             console.log('Comment deleted:', data);
             loadComments();
-            location.reload(); // Презареждане на страницата
+            location.reload();
         })
         .catch(error => console.error('Error:', error));
 }
@@ -72,7 +72,7 @@ function loadComments() {
 
             data.forEach(function (comment) {
                 var listItem = document.createElement('li');
-                listItem.className = 'comment'; // добавете тази линия
+                listItem.className = 'comment';
                 listItem.innerHTML = comment.text + ' (by ' + comment.userEmail + ') <button onclick="deleteComment(' + comment.id + ')">DELETE</button>';
                 commentsList.appendChild(listItem);
             });

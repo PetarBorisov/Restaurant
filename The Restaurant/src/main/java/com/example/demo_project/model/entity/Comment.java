@@ -5,8 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
+
 
 @Entity
 @Table(name = "comments")

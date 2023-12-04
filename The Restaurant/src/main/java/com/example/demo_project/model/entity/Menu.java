@@ -1,7 +1,7 @@
 package com.example.demo_project.model.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+
 
 import java.util.List;
 

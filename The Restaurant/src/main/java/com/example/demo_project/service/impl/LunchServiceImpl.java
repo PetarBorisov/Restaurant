@@ -1,9 +1,8 @@
 package com.example.demo_project.service.impl;
 
-import com.example.demo_project.model.dto.DrinkEditDto;
+
 import com.example.demo_project.model.dto.LunchAddDTO;
 import com.example.demo_project.model.dto.LunchEditDTO;
-import com.example.demo_project.model.entity.DrinkEntity;
 import com.example.demo_project.model.entity.LunchEntity;
 import com.example.demo_project.repository.LunchRepository;
 import com.example.demo_project.service.LunchService;

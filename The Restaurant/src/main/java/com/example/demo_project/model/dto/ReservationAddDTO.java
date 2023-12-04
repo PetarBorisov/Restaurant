@@ -1,9 +1,8 @@
 package com.example.demo_project.model.dto;
 
-import com.example.demo_project.model.validation.UniqueUserEmail;
-import jakarta.persistence.criteria.CriteriaBuilder;
+
 import jakarta.validation.constraints.*;
-import org.springframework.format.annotation.DateTimeFormat;
+
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -30,6 +29,7 @@ public class ReservationAddDTO {
 
     private Integer tables;
 
+    @NotNull
     @FutureOrPresent(message = "Date must be on present or in the future!")
     private LocalDate date;
 

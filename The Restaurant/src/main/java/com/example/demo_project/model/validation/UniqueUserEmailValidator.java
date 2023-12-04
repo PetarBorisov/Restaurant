@@ -4,8 +4,6 @@ import com.example.demo_project.repository.UserRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-import java.lang.annotation.Annotation;
-
 public class UniqueUserEmailValidator implements ConstraintValidator<UniqueUserEmail, String> {
 
     private final UserRepository userRepository;

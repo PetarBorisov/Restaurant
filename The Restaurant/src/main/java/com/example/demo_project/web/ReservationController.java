@@ -1,7 +1,6 @@
 package com.example.demo_project.web;
 
 import com.example.demo_project.model.dto.ReservationAddDTO;
-import com.example.demo_project.model.entity.ReservationEntity;
 import com.example.demo_project.service.ReservationService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
 
 @Controller
 public class ReservationController {
