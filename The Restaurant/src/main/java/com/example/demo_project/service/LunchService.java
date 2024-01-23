@@ -19,4 +19,8 @@ public interface LunchService {
 
     void saveLunch(LunchEditDTO lunchEditDTO);
 
+    void editLunch(Long id, LunchEditDTO lunchEditDTO);
+
+    void deleteLunch(Long id);
+
 }
