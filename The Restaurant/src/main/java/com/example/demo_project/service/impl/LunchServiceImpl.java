@@ -77,6 +77,21 @@ public class LunchServiceImpl implements LunchService {
 
     }
 
+    @Override
+    public void editLunch(Long id, LunchEditDTO lunchEditDTO) {
+        Optional<LunchEntity> lunch = this.lunchRepository.findById(lunchEditDTO.getId());
+
+        if (lunch.isPresent()) {
+            LunchEntity existingLunch = lunch.get();
+            existingLunch.setName(lunchEditDTO.getName());
+            existingLunch.setPhoto(lunchEditDTO.getPhoto());
+            existingLunch.setDescription(lunchEditDTO.getDescription());
+            existingLunch.setPrice(lunchEditDTO.getPrice());
+
+            lunchRepository.save(existingLunch);
+        }
+    }
+
     private LunchEditDTO convertEntityToEditLunchDto(LunchEntity lunchEntity) {
 
         LunchEditDTO editLunch = new LunchEditDTO();
@@ -87,5 +102,10 @@ public class LunchServiceImpl implements LunchService {
         editLunch.setPhoto(lunchEntity.getPhoto());
         editLunch.setPrice(lunchEntity.getPrice());
         return editLunch;
+    }
+    @Override
+    public void deleteLunch(Long id) {
+        Optional<LunchEntity> delete = this.lunchRepository.findById(id);
+        delete.ifPresent(lunchRepository::delete);
     }
 }
