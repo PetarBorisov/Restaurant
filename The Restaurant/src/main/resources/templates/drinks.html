@@ -15,6 +15,9 @@
           <form sec:authorize="hasRole('ADMIN')" th:action="@{/edit/drink/{id}(id=${drink.id})}">
               <button type="submit" class="btn btn-link">Edit</button>
           </form>
+          <form sec:authorize="hasRole('ADMIN')" th:action="@{/delete/drink/{id}(id=${drink.id})}" method="POST">
+              <button type="submit" class="btn btn-link">Delete</button>
+          </form>
         <h4 th:text="${drink.name}">На Наков Сливовата</h4>
         <p th:text="${drink.description}">Варена под сливата от която са брани плодовете</p>
         <h5 th:text="'$' + ${drink.price}"> $7.79</h5>
