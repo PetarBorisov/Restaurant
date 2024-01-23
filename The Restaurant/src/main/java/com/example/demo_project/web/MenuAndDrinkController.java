@@ -75,17 +75,15 @@ public class MenuAndDrinkController {
         if (existingDrink == null) {
             return new ModelAndView("redirect:edit_drink");
         }
-        existingDrink.setName(drinkEditDto.getName());
-        existingDrink.setPhoto(drinkEditDto.getPhoto());
-        existingDrink.setDescription(drinkEditDto.getDescription());
-        existingDrink.setPrice(drinkEditDto.getPrice());
 
-        drinksService.saveDrink(existingDrink);
-
-
+         drinksService.editDrink(id, drinkEditDto);
         return new ModelAndView("redirect:/drinks");
     }
-
+@PostMapping("/delete/drink/{id}")
+    public ModelAndView removeDrink(@PathVariable("id") Long id) {
+    drinksService.deleteDrink(id);
+    return new ModelAndView("redirect:/drinks");
+}
 
 }
 
