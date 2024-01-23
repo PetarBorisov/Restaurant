@@ -63,7 +63,7 @@ public class DinnerServiceImpl implements DinnerService {
         return null;
     }
 
-    @Override
+  @Override
     public DinnerEditDTO getDinnerEditDtoById(Long id) {
         Optional<DinnerEntity> dinnerEntityOptional = dinnerRepository.findById(id);
         return dinnerEntityOptional.map(dinnerEntity -> modelMapper.map(dinnerEntity, DinnerEditDTO.class)).orElse(null);
@@ -75,6 +75,27 @@ public class DinnerServiceImpl implements DinnerService {
         DinnerEntity dinnerEntity = modelMapper.map(dinnerEditDTO, DinnerEntity.class);
 
         dinnerRepository.save(dinnerEntity);
+    }
+
+    @Override
+    public void editDinner(Long id, DinnerEditDTO dinnerEditDTO) {
+        Optional<DinnerEntity> dinner = this.dinnerRepository.findById(dinnerEditDTO.getId());
+
+        if (dinner.isPresent()) {
+            DinnerEntity existingDinner = dinner.get();
+            existingDinner.setName(dinnerEditDTO.getName());
+            existingDinner.setPhoto(dinnerEditDTO.getPhoto());
+            existingDinner.setDescription(dinnerEditDTO.getDescription());
+            existingDinner.setPrice(dinnerEditDTO.getPrice());
+
+            dinnerRepository.save(existingDinner);
+        }
+    }
+
+    @Override
+    public void deleteDinner(Long id) {
+        Optional<DinnerEntity> delete = this.dinnerRepository.findById(id);
+        delete.ifPresent(dinnerRepository::delete);
     }
 
     private DinnerEditDTO convertEntityToEditLunchDto(DinnerEntity dinnerEntity) {
