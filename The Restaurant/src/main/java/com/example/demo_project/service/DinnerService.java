@@ -18,4 +18,10 @@ public interface DinnerService {
     DinnerEditDTO getDinnerEditDtoById(Long id);
 
     void saveDinner(DinnerEditDTO dinnerEditDTO);
+
+    void editDinner(Long id, DinnerEditDTO dinnerEditDTO);
+
+    void deleteDinner(Long id);
+
+
 }
