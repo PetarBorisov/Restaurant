@@ -20,4 +20,8 @@ public interface DrinksService {
 
     DrinkEditDto getDrinkEditDtoById(Long id);
 
+    void editDrink(Long id, DrinkEditDto drinkEditDto);
+
+    void deleteDrink(Long id);
+
 }
