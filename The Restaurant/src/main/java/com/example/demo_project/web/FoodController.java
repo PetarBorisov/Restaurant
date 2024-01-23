@@ -12,10 +12,7 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -71,14 +68,12 @@ public class FoodController {
         if (existingLunch == null) {
             return new ModelAndView("redirect:edit_lunch");
         }
-        existingLunch.setName(lunchEditDTO.getName());
-        existingLunch.setPhoto(lunchEditDTO.getPhoto());
-        existingLunch.setDescription(lunchEditDTO.getDescription());
-        existingLunch.setPrice(lunchEditDTO.getPrice());
-
-        lunchService.saveLunch(existingLunch);
-
-
+        lunchService.editLunch(id, lunchEditDTO);
+        return new ModelAndView("redirect:/lunches");
+    }
+    @PostMapping("/delete/lunch/{id}")
+     public ModelAndView removeLunch(@PathVariable("id") Long id) {
+        lunchService.deleteLunch(id);
         return new ModelAndView("redirect:/lunches");
     }
 
@@ -122,14 +117,15 @@ public class FoodController {
         if (existingDinner == null) {
             return new ModelAndView("redirect:/edit_dinner");
         }
-            existingDinner.setName(dinnerEditDTO.getName());
-            existingDinner.setPhoto(dinnerEditDTO.getPhoto());
-            existingDinner.setDescription(dinnerEditDTO.getDescription());
-            existingDinner.setPrice(dinnerEditDTO.getPrice());
 
-            dinnerService.saveDinner(existingDinner);
+           dinnerService.editDinner(id, dinnerEditDTO);
             return new ModelAndView("redirect:/dinners");
 
+        }
+        @PostMapping("/delete/dinner/{id}")
+        public ModelAndView removeDinner(@PathVariable("id") Long id) {
+        dinnerService.deleteDinner(id);
+        return new ModelAndView("redirect:/dinners");
         }
 
     }
