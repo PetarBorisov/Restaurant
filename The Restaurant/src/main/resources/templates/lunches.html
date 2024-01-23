@@ -15,6 +15,9 @@
             <form sec:authorize="hasRole('ADMIN')" th:action="@{/edit/lunch/{id}(id=${lunch.id})}">
                 <button type="submit" class="btn btn-link">Edit</button>
             </form>
+            <form sec:authorize="hasRole('ADMIN')" th:action="@{/delete/lunch/{id}(id=${lunch.id})}" method="POST">
+                <button type="submit" class="btn btn-link">Delete</button>
+            </form>
             <h4 th:text="${lunch.name}">Special Lunch 1</h4>
             <p th:text="${lunch.description}" >Sed id magna vitae eros sagittis euismod.</p>
             <h5 th:text="'$' + ${lunch.price}" > $15.79</h5>
