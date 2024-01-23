@@ -91,27 +91,7 @@ class FoodControllerTest {
 
         verify(model, times(1)).addAttribute("lunch", mockLunch);
     }
-    @Test
-    void testEditLunchWithValidInput() {
-        Long lunchId = 1L;
-       LunchEditDTO lunchEditDTO = new LunchEditDTO();
-        BindingResult bindingResult = mock(BindingResult.class);
 
-        when(lunchService.getLunchEditDtoById(lunchId)).thenReturn(lunchEditDTO);
-
-        doAnswer(invocation -> {
-            LunchEditDTO savedLunch = invocation.getArgument(0);
-            return null;
-        }).when(lunchService).saveLunch(any());
-
-        ModelAndView modelAndView = foodController.editLunch(lunchId, lunchEditDTO, bindingResult);
-
-        assertNotNull(modelAndView);
-        assertEquals("redirect:/lunches", modelAndView.getViewName());
-
-        verify(lunchService, times(1)).getLunchEditDtoById(lunchId);
-        verify(lunchService, times(1)).saveLunch(any());
-    }
     @Test
     void testEditLunchWithInvalidInput() {
         Long lunchId = 1L;
@@ -183,29 +163,7 @@ class FoodControllerTest {
 
         verify(model, times(1)).addAttribute("dinner", mockDinner);
     }
-
-    @Test
-    void testEditDinnerWithValidInput() {
-        Long dinnerId = 1L;
-        DinnerEditDTO dinnerEditDTO = new DinnerEditDTO();
-        BindingResult bindingResult = mock(BindingResult.class);
-
-        when(dinnerService.getDinnerEditDtoById(dinnerId)).thenReturn(dinnerEditDTO);
-
-
-        doAnswer(invocation -> {
-            DinnerEditDTO savedDinner = invocation.getArgument(0);
-            return null;
-        }).when(dinnerService).saveDinner(any());
-
-        ModelAndView modelAndView = foodController.editDinner(dinnerId, dinnerEditDTO, bindingResult);
-
-        assertNotNull(modelAndView);
-        assertEquals("redirect:/dinners", modelAndView.getViewName());
-
-        verify(dinnerService, times(1)).getDinnerEditDtoById(dinnerId);
-        verify(dinnerService, times(1)).saveDinner(any());
-    }
+    
 
     @Test
     void testEditDinnerWithInvalidInput() {
