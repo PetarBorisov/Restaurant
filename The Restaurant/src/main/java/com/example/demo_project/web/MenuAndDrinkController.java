@@ -5,6 +5,7 @@ import com.example.demo_project.model.dto.DrinksAddDTO;
 import com.example.demo_project.model.entity.DrinkEntity;
 import com.example.demo_project.repository.DrinksRepository;
 import com.example.demo_project.service.DrinksService;
+import com.example.demo_project.service.exception.ObjectNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

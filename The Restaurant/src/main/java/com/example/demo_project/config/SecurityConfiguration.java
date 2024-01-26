@@ -41,6 +41,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/","/menu","/gallery","/users/login", "/users/register", "/users/login-error").permitAll()
                         .requestMatchers("/api/comments/add","/api/comments/view").permitAll()
                         // all other requests are authenticated.
+                        .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
         ).formLogin(
                 formLogin -> {

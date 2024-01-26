@@ -8,6 +8,7 @@ import com.example.demo_project.model.entity.DinnerEntity;
 import com.example.demo_project.model.entity.LunchEntity;
 import com.example.demo_project.service.DinnerService;
 import com.example.demo_project.service.LunchService;
+import com.example.demo_project.service.exception.ObjectNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,16 +61,20 @@ public class FoodController {
     @PostMapping("/edit/lunch/{id}")
     public ModelAndView editLunch(@PathVariable("id") Long id, @ModelAttribute("lunch") @Valid LunchEditDTO lunchEditDTO,
                                   BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return new ModelAndView("redirect:/edit_lunch");
-        }
-        LunchEditDTO existingLunch = lunchService.getLunchEditDtoById(id);
 
-        if (existingLunch == null) {
-            return new ModelAndView("redirect:edit_lunch");
-        }
-        lunchService.editLunch(id, lunchEditDTO);
-        return new ModelAndView("redirect:/lunches");
+            if (bindingResult.hasErrors()) {
+                return new ModelAndView("redirect:/edit_lunch");
+            }
+
+            LunchEditDTO existingLunch = lunchService.getLunchEditDtoById(id);
+
+            if (existingLunch == null) {
+                throw new ObjectNotFoundException("Lunch with id " + id + " not found");
+            }
+
+            lunchService.editLunch(id, lunchEditDTO);
+            return new ModelAndView("redirect:/lunches");
+
     }
     @PostMapping("/delete/lunch/{id}")
      public ModelAndView removeLunch(@PathVariable("id") Long id) {
