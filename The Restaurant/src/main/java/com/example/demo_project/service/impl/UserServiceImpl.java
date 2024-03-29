@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.passwordEncoder = passwordEncoder;
+
     }
 
     @Override
