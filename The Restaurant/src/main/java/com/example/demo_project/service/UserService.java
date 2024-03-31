@@ -5,6 +5,7 @@ import com.example.demo_project.model.dto.UserRegisterDTO;
 import com.example.demo_project.model.entity.UserEntity;
 
 import java.util.List;
+import java.util.Locale;
 
 public interface UserService {
 
