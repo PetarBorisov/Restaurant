@@ -12,40 +12,38 @@
       margin: 0;
       padding: 0;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       height: 100vh;
     }
 
-    .error-container {
+    .container {
       text-align: center;
     }
 
-    .error-code {
-      font-size: 72px;
-      font-weight: bold;
-      color: #d9534f;
+    h1 {
+      font-size: 2em;
       margin-bottom: 10px;
+      color: #e74c3c;
     }
 
-    .error-message {
-      font-size: 24px;
+    p {
+      font-size: 1.2em;
       margin-bottom: 20px;
     }
 
-    .back-link {
-      color: #333;
+    a {
+      color: #3498db;
       text-decoration: none;
-      font-weight: bold;
     }
   </style>
 </head>
 <body>
-<div class="error-container">
-  <div class="error-code">500</div>
-  <div class="error-message">Internal Server Error</div>
-  <p>Sorry, something went wrong on our end. We are working to fix this issue. Please try again later.</p>
-  <p><a href="#" class="back-link">Go back</a></p>
+<div class="container">
+  <h1>500 Internal Server Error</h1>
+  <p>Oops! Something went wrong on our end.</p>
+  <p>Please try again later or contact support.</p>
+  <a href="/">Go back to homepage</a>
 </div>
 </body>
 </html>
