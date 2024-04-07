@@ -7,6 +7,8 @@ import com.example.demo_project.repository.CommentRepository;
 import com.example.demo_project.service.CommentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,5 +50,12 @@ public class CommentController {
     public ResponseEntity<String> deleteComment(@PathVariable Long id) {
         commentService.deleteComment(id);
         return new ResponseEntity<>("Comment deleted successfully", HttpStatus.OK);
+    }
+    @GetMapping("/admin")
+    public ResponseEntity<Boolean> isAdmin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = authentication != null && authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        return new ResponseEntity<>(isAdmin, HttpStatus.OK);
     }
 }
