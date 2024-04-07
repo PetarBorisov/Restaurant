@@ -73,7 +73,28 @@ function loadComments() {
             data.forEach(function (comment) {
                 var listItem = document.createElement('li');
                 listItem.className = 'comment';
-                listItem.innerHTML = comment.text + ' (by ' + comment.userEmail + ') <button onclick="deleteComment(' + comment.id + ')">DELETE</button>';
+                listItem.innerHTML = comment.text + ' (by ' + comment.userEmail + ')';
+
+                // Проверка за администраторските права
+                fetch('/api/comments/admin')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(isAdmin => {
+                        if (isAdmin) {
+                            var deleteButton = document.createElement('button');
+                            deleteButton.textContent = 'DELETE';
+                            deleteButton.onclick = function () {
+                                deleteComment(comment.id);
+                            };
+                            listItem.appendChild(deleteButton);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+
                 commentsList.appendChild(listItem);
             });
         })
