@@ -21,11 +21,11 @@ public class ReservationController {
 
 
     private final ReservationService reservationService;
-    private final EmailService sendMailService;
+    private final EmailService emailService;
 
-    public ReservationController(ReservationService reservationService, EmailService sendMailService) {
+    public ReservationController(ReservationService reservationService, EmailService emailService) {
         this.reservationService = reservationService;
-        this.sendMailService = sendMailService;
+        this.emailService = emailService;
     }
 
 
@@ -43,7 +43,7 @@ public class ReservationController {
         }
         reservationService.addReservation(reservationAddDTO);
 
-        sendMailService.sendReservationEmail(reservationAddDTO.getEmail(), reservationAddDTO.getName(), Locale.ENGLISH);
+        emailService.sendReservationEmail(reservationAddDTO.getEmail(), reservationAddDTO.getName(), Locale.ENGLISH);
 
         return new ModelAndView("redirect:/successReservation");
     }
