@@ -20,11 +20,12 @@ import java.util.Locale;
 public class UserRegisterController {
 
    private final UserService userService;
-   private final EmailService sendMailService;
+   private final EmailService emailService;
 
-    public UserRegisterController(UserService userService, EmailService sendMailService) {
+    public UserRegisterController(UserService userService, EmailService emailService) {
         this.userService = userService;
-        this.sendMailService = sendMailService;
+        this.emailService = emailService;
+
     }
     @GetMapping("/register")
     public String register(@ModelAttribute("userRegisterDTO") UserRegisterDTO userRegisterDTO) {
@@ -44,7 +45,7 @@ public class UserRegisterController {
             return "redirect:/users/register";
         }
 
-       sendMailService.sendRegistrationEmail(userRegisterDTO.getEmail(), userRegisterDTO.getFirstName(), Locale.ENGLISH);
+       emailService.sendRegistrationEmail(userRegisterDTO.getEmail(), userRegisterDTO.getFirstName(), Locale.ENGLISH);
 
         redirectAttributes.addFlashAttribute("successMessage", "Регистрацията беше успешна. Моля, влезте в профила си.");
         return "redirect:/login";
